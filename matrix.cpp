@@ -60,6 +60,26 @@ Matrix::~Matrix()
     p_row = NULL;
 }
 
+Matrix* Matrix::Get_col(int c) {
+    if(c < 0 || c >= this->col) {
+        cout << row << "x" << col << "矩阵没有第" << c << "列" << endl;
+        throw EXPT_MAT_SHAP_INCON;
+    }
+    Matrix* p_res = new Matrix(row, 1);
+    for(int i=0;i<row;++i) p_res->p_row[i][0] = p_row[i][c];
+    return p_res;
+}
+Matrix* Matrix::Get_row(int r) {
+
+    if(r < 0 || r >= this->row) {
+        cout << row << "x" << col << "矩阵没有第" << r << "列" << endl;
+        throw EXPT_MAT_SHAP_INCON;
+    }
+    Matrix* p_res = new Matrix(1, col);
+    for(int j=0;j<col;++j) p_res->p_row[0][j] = p_row[r][j];
+    return p_res;
+}
+
 void Matrix::Print()
 {
     for(int i=0;i<row;++i) {

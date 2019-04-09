@@ -94,6 +94,26 @@ void Linear::Optimize(double lr) {
 }
 
 
+void FullyConnectedNetwork::Print() {
+
+    cout << "NN的weight和bias如下：" << endl;
+    cout << "输入层weight" << endl;
+    pp_layer[0]->p_weight->Print();
+    cout << "输入层bias" << endl;
+    pp_layer[0]->p_bias->Print();
+    for(int l=1;l<n_layer-1;++l) {
+        cout << "隐藏层 "<<l<<" weight" << endl;
+        pp_layer[l]->p_weight->Print();
+        cout << "隐藏层 "<<l<<" bias" << endl;
+        pp_layer[l]->p_bias->Print();
+    }
+    cout << "输出层weight" << endl;
+    pp_layer[n_layer-1]->p_weight->Print();
+    cout << "输出层bias" << endl;
+    pp_layer[n_layer-1]->p_bias->Print();
+}
+
+
 
 FullyConnectedNetwork::~FullyConnectedNetwork() {
     for(int l=0;l<n_layer;++l) delete pp_layer[l];
@@ -144,7 +164,7 @@ void FullyConnectedNetwork::Optimize(double lr) {
 void FullyConnectedNetwork::InitParam(double (*func)()) {
     for(int i=0;i<n_layer;++i) {
         pp_layer[i]->p_weight->Apply_(func);
-        pp_layer[i]->p_bias->Fill_(0);
+        pp_layer[i]->p_bias->Apply_(func);
 
     }
 }
@@ -190,7 +210,7 @@ int gradient_check_net(FullyConnectedNetwork* p_net, double delta) {
             }
 
     }
-    delete p_x, p_y, p_g_y;
+    delete p_x; delete p_y; delete p_g_y;
     cout << "test Optimize" << endl;
     p_net->Optimize();
 
@@ -239,7 +259,7 @@ int gradient_check_linear(Linear* p_fc, double delta) {
             p_fc->p_bias->p_row[i][j] -= delta;
 
         }
-    delete p_x, p_y, p_g_y;
+    delete p_x; delete p_y; delete p_g_y;
 }
 
 

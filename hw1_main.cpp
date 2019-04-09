@@ -23,7 +23,7 @@ double Error_rate(Matrix* p_data, Matrix* p_label, Matrix* p_weight) {
     // error rate of new weight
     Matrix* p_pred_corr = (*p_pred != *p_label);
     double err = p_pred_corr->Sum() / p_label->row;
-    delete p_pred, p_pred_corr;
+    delete p_pred; delete p_pred_corr;
     return err;
 }
 

@@ -34,6 +34,8 @@ public:
     Matrix* operator-(Matrix &B);
     Matrix* operator==(Matrix &B);
     Matrix* operator!=(Matrix &B);
+    Matrix* Get_col(int c);
+    Matrix* Get_row(int r);
 
     Matrix& operator=(Matrix const &B);
     Matrix* operator[](int i);

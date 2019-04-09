@@ -37,13 +37,14 @@ public:
     int n_hidden;
     int hidden_layer;
     int n_layer;
-    FullyConnectedNetwork(int num_input, int num_output, int num_hidden, int num_layer, double (*act)(double)=sigmoid, double (d_act)(double)=d_sigmoid);
+    FullyConnectedNetwork(int num_input, int num_output, int num_hidden, int num_hidden_layer, double (*act)(double)=sigmoid, double (d_act)(double)=d_sigmoid);
     ~FullyConnectedNetwork();
     void InitParam(double (*func)()=Norm_random);
     Linear** pp_layer=NULL;
     Matrix* Forward(Matrix* _p_input);
     Matrix* Backward(Matrix* _p_g_input);
     void Optimize(double lr=1e-4);
+    void Print();
 };
 
 int gradient_check_net(FullyConnectedNetwork* p_net, double delta=1e-4);
